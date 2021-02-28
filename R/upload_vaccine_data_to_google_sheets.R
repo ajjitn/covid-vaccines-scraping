@@ -8,7 +8,7 @@ library(tidyverse)
 
 
 ## --- Get secrets from .env -------
-printwd()
+getwd()
 list.files()
 
 load_dot_env()

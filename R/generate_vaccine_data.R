@@ -9,9 +9,7 @@ library(dotenv)
 # Got this url from inspecting network tab on the CDC vaccine tracker page
 vaccination_data_url = "https://covid.cdc.gov/covid-data-tracker/COVIDData/getAjaxData?id=vaccination_data"
 
-
 d = jsonlite::read_json(vaccination_data_url)['vaccination_data'][[1]]
-
 
 # item 64 = US national avg and item 65 = Long Term Care, which are formatted differently
 df = d %>% 

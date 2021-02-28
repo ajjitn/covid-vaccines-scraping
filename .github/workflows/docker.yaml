@@ -35,10 +35,14 @@ jobs:
 
       - name: Download  data
         run: Rscript R/generate_vaccine_data.R
+
         
       - name: Upload data
         run: Rscript R/upload_vaccine_data_to_google_sheets.R
-
+        env: # Or as an environment variable
+          google_key: ${{ secrets.GOOGLE_KEY }}
+          google_sheets_id: ${{ secrets.GOOGLE_SHEETS_ID }}
+          
       - name: Push commits
         run: |
           git config user.name github-actions

@@ -44,7 +44,7 @@ us_df = us_df %>%
 
 
 
-# Write out to Google S
+## --- Write to Google Sheets -------
 state_df %>% 
   sheet_write(ss = google_sheet_id, sheet = "state")
 

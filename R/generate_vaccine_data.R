@@ -108,7 +108,7 @@ if (!file.exists("data/timeseries/state_vaccinations.csv")){
   
   old_file_states = read_csv("data/timeseries/state_vaccinations.csv")
   
-  new_file_states = old_file %>% 
+  new_file_states = old_file_states %>% 
     bind_rows(df) %>% 
     distinct(.keep_all = TRUE)
   

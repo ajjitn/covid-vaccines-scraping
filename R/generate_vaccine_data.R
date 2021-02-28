@@ -17,7 +17,7 @@ d = jsonlite::read_json(vaccination_data_url)['vaccination_data'][[1]]
 df = d %>% 
   head(63) %>% 
   map_df(~tibble(
-    Date = .x %>% pluck("Date"),
+    Date = .x %>% pluck("Date") %>% as.Date(),
     Location = .x %>% pluck("Location"),
     LongName = .x %>% pluck("LongName"),
     ShortName = .x %>% pluck("ShortName"),                            
@@ -51,7 +51,7 @@ df = d %>%
 
 us_df = d[64]  %>% 
   map_df(~tibble(
-    Date = .x %>% pluck("Date"),
+    Date = .x %>% pluck("Date") %>% as.Date(),
     Location = .x %>% pluck("Location"),
     LongName = .x %>% pluck("LongName"),
     ShortName = .x %>% pluck("ShortName"),                            

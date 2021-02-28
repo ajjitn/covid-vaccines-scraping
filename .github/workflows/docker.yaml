@@ -33,10 +33,11 @@ jobs:
 
         shell: Rscript {0}
 
-      - name: Download and update data
+      - name: Download  data
         run: Rscript R/generate_vaccine_data.R
+        
+      - name: Upload data
         run: Rscript R/upload_vaccine_data.R
-
 
       - name: Push commits
         run: |

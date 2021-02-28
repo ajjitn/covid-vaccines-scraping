@@ -1,0 +1,48 @@
+on:
+  schedule:
+  - cron: "0 18 * * *"
+  push:
+    branches:
+      - master
+    paths:
+      - '**.R'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.R'
+jobs:
+  render:
+    name: Run R update scripts
+    runs-on: ubuntu-latest
+    container: rocker/verse
+    steps:
+    
+      - name: Checkout 
+        uses: actions/checkout@v2    
+      
+      
+      - name: Install packages
+        run: |
+          install.packages('remotes')
+          remotes::install_cran("jsonlite")
+          remotes::install_cran("dotenv")
+          remotes::install_cran("janitor")
+          remotes::install_cran("tidyverse")
+          remotes::install_cran("googlesheets4")
+
+        shell: Rscript {0}
+
+      - name: Download and update data
+        run: Rscript R/generate_vaccine_data.R
+        run: Rscript R/upload_vaccine_data.R
+
+
+      - name: Push commits
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update vaccine data (GH Actions)"
+          git push
+

@@ -109,7 +109,8 @@ if (!file.exists("data/timeseries/state_vaccinations.csv")){
   old_file_states = read_csv("data/timeseries/state_vaccinations.csv")
   
   new_file_states = old_file %>% 
-    bind_rows(df)
+    bind_rows(df) %>% 
+    distinct(.keep_all = TRUE)
   
   new_file_states %>% 
     write_csv("data/timeseries/state_vaccinations.csv")
@@ -119,7 +120,8 @@ if (!file.exists("data/timeseries/state_vaccinations.csv")){
   old_file_us = read_csv("data/timeseries/us_vaccinations.csv")
   
   new_file_us = old_file_us %>% 
-    bind_rows(us_df)
+    bind_rows(us_df) %>% 
+    distinct(.keep_all = TRUE)
   
   new_file_us %>% 
     write_csv("data/timeseries/us_vaccinations.csv")

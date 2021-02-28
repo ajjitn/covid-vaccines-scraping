@@ -1,7 +1,6 @@
 library(googlesheets4)
 library(dotenv)
 library(jsonlite)
-library(googledrive)
 library(tidyverse)
 # May need to install folllowing linux lib
 # sudo apt install libsodium-dev

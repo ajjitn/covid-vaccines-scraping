@@ -8,6 +8,9 @@ library(tidyverse)
 
 
 ## --- Get secrets from .env -------
+printwd()
+list.files()
+
 load_dot_env()
 
 google_sheet_id = Sys.getenv("google_sheets_id")

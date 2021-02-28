@@ -80,7 +80,6 @@ us_df = d[64]  %>%
 
 ## --- Write out data -------
 
-
 # Write out current data
 dir.create("data/current/", recursive = T, showWarnings = FALSE)
 

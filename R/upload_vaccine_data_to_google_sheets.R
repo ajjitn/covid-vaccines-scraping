@@ -8,10 +8,17 @@ library(tidyverse)
 
 
 ## --- Get secrets from .env -------
-getwd()
-list.files()
 
-tryCatch(load_dot_env())
+# When using GH actions, env vars won't be in .env file 
+# and will instead be laoded in as a repository secret.
+# So we safely use load_dot_env for local development
+load_dot_env_safely = purrr::possibly(load_dot_env, 
+                                      otherwise = ".env file was not found and therefore not loaded")
+
+
+load_dot_env_safely()
+
+
 
 google_sheet_id = Sys.getenv("google_sheets_id")
 google_service_account_json = Sys.getenv("google_key")  

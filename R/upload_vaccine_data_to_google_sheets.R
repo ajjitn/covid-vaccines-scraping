@@ -11,7 +11,7 @@ library(tidyverse)
 getwd()
 list.files()
 
-load_dot_env()
+tryCatch(load_dot_env())
 
 google_sheet_id = Sys.getenv("google_sheets_id")
 google_service_account_json = Sys.getenv("google_key")  

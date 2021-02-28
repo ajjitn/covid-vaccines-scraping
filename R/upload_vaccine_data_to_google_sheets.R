@@ -20,7 +20,7 @@ gs4_auth(path = google_service_account_json)
 
 
 
-# Read in current us and state vaccination data
+## --- Read in and select data -------
 state_df =
   read_csv("data/current/state_vaccinations.csv")
 

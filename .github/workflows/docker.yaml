@@ -37,7 +37,7 @@ jobs:
         run: Rscript R/generate_vaccine_data.R
         
       - name: Upload data
-        run: Rscript R/upload_vaccine_data.R
+        run: Rscript R/upload_vaccine_data_to_google_sheets.R
 
       - name: Push commits
         run: |

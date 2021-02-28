@@ -2,15 +2,12 @@ library(googlesheets4)
 library(dotenv)
 library(jsonlite)
 library(tidyverse)
-# May need to install folllowing linux lib
-# sudo apt install libsodium-dev
-# library(sodium)
 
 
 
 
 
-# Google Sheets id and service account key is in .env file
+## --- Get secrets from .env -------
 load_dot_env()
 
 google_sheet_id = Sys.getenv("google_sheets_id")
@@ -19,6 +16,7 @@ google_service_account_json = Sys.getenv("google_key")
 # Set up service account auth
 gs4_deauth()
 gs4_auth(path = google_service_account_json)
+
 
 
 

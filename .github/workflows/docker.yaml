@@ -1,6 +1,9 @@
 on:
   schedule:
   - cron: "0 18 * * *"
+  push:
+    branches:
+      - master
 
 jobs:
   render:
@@ -34,7 +37,17 @@ jobs:
           google_key: ${{ secrets.GOOGLE_KEY }}
           google_sheets_id: ${{ secrets.GOOGLE_SHEETS_ID }}
           
+          
+      - name: check for changes
+        run: |
+          if git diff --exit-code; then
+            echo "::set-env name=changes_exist::false"
+          else
+            echo "::set-env name=changes_exist::true"
+          fi
+          
       - name: Push commits
+        if: env.changes_exist == 'true'
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com

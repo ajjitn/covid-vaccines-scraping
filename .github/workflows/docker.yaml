@@ -1,6 +1,6 @@
 on:
   schedule:
-  - cron: "0 18 * * *"
+  - cron: "0 18,22 * * 1-5"
   push:
     branches:
       - master
@@ -38,12 +38,15 @@ jobs:
           google_sheets_id: ${{ secrets.GOOGLE_SHEETS_ID }}
           
           
-      - name: check for changes
+      - name: Check for changes
         run: |
           if git diff --exit-code; then
             echo "changes_exist=false" >> $GITHUB_ENV
+            echo "No changes detected"
           else
             echo "changes_exist=true" >> $GITHUB_ENV
+            echo "Changes detected and will be committed"
+
           fi
           
       - name: Push commits

@@ -40,14 +40,57 @@ us_df =
 
 
 state_df = state_df %>% 
-  select(Date, Location, LongName, Doses_Administered,
-         Administered_Dose1_Pop_Pct, Administered_Dose2_Pop_Pct,
-         Administered_Dose1_Recip_18PlusPop_Pct, Administered_Dose2_Recip_18PlusPop_Pct) 
+  select(Date, Location, LongName, 
+         Doses_Distributed, Dist_Per_100K,
+         Doses_Administered, Admin_Per_100K,
+         Administered_18Plus, Admin_Per_100k_18Plus,
+         Administered_Dose1_Recip, Administered_Dose1_Pop_Pct,
+         Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
+         Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
+         Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct, 
+         Census2019, Census2019_18PlusPop)
+
+
 
 us_df = us_df %>% 
-  select(Date, Location, LongName, Doses_Administered,
-         Administered_Dose1_Pop_Pct, Administered_Dose2_Pop_Pct,
-         Administered_Dose1_Recip_18PlusPop_Pct, Administered_Dose2_Recip_18PlusPop_Pct)
+  select(Date, Location, LongName, 
+         Doses_Distributed,
+         Doses_Administered,
+         Administered_18Plus, Admin_Per_100k_18Plus,
+         Administered_Dose1_Recip, Administered_Dose1_Pop_Pct,
+         Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
+         Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
+         Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct,
+         Census2019, Census2019_18PlusPop)
+
+
+
+
+
+## --- Data Dictionary ----0-
+
+data_dic = tribble(~column_name, ~cdc_description, ~in_cdc_dashboard,
+                   "Date", "Date the data was updated", 0,
+                   "Location", "2 Letter State abbreviation. Some locations are departments and can be 3 letter abbvs", 0,
+                   "LongName", "Full name of state or department", 1,
+                   "Doses_Distributed", "Total Delivered", 1,
+                   "Dist_Per_100k", "Total Delivered per 100k", 1,
+                   "Doses_Administered", "Total Doses Administered", 1,
+                   "Admin_Per_100K", "Total Doees Administered per 100k", 1,
+                   "Administered_18Plus", "Total Doses Administered 18+", 1,
+                   "Admin_Per_100k_18Plus", "Total Doses Administered 18+ per 100k", 1,
+                   "Administered_Dose1_Recip", "People receiving 1 or more doses", 1,
+                   "Administered_Dose1_Pop_Pct", "Percent of total population receiving 1 or more doses", 1,
+                   "Administered_Dose1_Recip_18Plus", "People 18+ Receiving 1 or more doses", 1,
+                   "Administered_Dose1_Recip_18PlusPop_Pct", "Percent of 18+ population receiving 1 or more doses", 1,
+                   "Administered_Dose2_Recip", "People receiving 2 doses", 1,
+                   "Administered_Dose2_Pop_Pct", "Percent of total population receiving 2 doses", 1,
+                   "Administered_Dose2_Recip_18Plus", "People 18+ receiving 2 doses",  1,
+                   "Administered_Dose2_Recip_18PlusPop_Pct", "Percent of 18+ population receiving 2 doses", 1,
+                   "Census2019", "Census 2019 population", 0,
+                   "Census2019_18PlusPop", "Census 2019 population above the age of 18",  0)
+
+
 
 
 
@@ -58,4 +101,14 @@ state_df %>%
 
 us_df %>% 
   sheet_write(ss = google_sheet_id, sheet = "us")
+
+data_dic %>% 
+  sheet_write(ss = google_sheet_id, sheet = "data_dictionary")
+
+
+
+
+
+
+
 

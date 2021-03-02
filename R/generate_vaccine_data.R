@@ -78,7 +78,7 @@ us_df = d[64]  %>%
 
 # CDC for some reason reports New York as New York State. Based on Lindsays' request, we update this
 df = df %>% 
-  tidylog::mutate(LongName = if_else(LongName == "New York State", "New York", LongName))
+  mutate(LongName = if_else(LongName == "New York State", "New York", LongName))
 
 ## --- Write out data -------
 

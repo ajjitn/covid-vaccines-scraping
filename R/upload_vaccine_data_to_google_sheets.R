@@ -30,7 +30,7 @@ gs4_auth(path = google_service_account_json)
 
 
 
-## --- Read in and select data -------
+## --- Read in and select daily data -------
 state_df =
   read_csv("data/current/state_vaccinations.csv")
 
@@ -67,7 +67,7 @@ us_df = us_df %>%
 
 
 
-## --- Data Dictionary ----0-
+## --- Daily Data Dictionary ----0-
 
 data_dic = tribble(~column_name, ~cdc_description, ~in_cdc_dashboard,
                    "Date", "Date the data was updated", 0,
@@ -90,6 +90,15 @@ data_dic = tribble(~column_name, ~cdc_description, ~in_cdc_dashboard,
                    "Census2019", "Census 2019 population", 0,
                    "Census2019_18PlusPop", "Census 2019 population above the age of 18",  0)
 
+data_dic_ts = tribble(~"See the section marked `US Vaccination Data` on this page:", "https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations")
+
+
+
+## --- Read in and select timeseries data -------
+state_df_ts = read_csv("data/timeseries/state_vaccinations.csv")
+us_df_ts = read_csv("data/timeseries/us_vaccinations.csv")
+
+# For data dictionary of these data, please see https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations and the section marked `United States vaccination data`
 
 
 
@@ -98,12 +107,23 @@ data_dic = tribble(~column_name, ~cdc_description, ~in_cdc_dashboard,
 state_df %>% 
   sheet_write(ss = google_sheet_id, sheet = "state")
 
-
 us_df %>% 
   sheet_write(ss = google_sheet_id, sheet = "us")
 
 data_dic %>% 
   sheet_write(ss = google_sheet_id, sheet = "data_dictionary")
+
+
+state_df_ts %>% 
+  sheet_write(ss = google_sheet_id, sheet = "state_timeseries")
+
+us_df_ts %>% 
+  sheet_write(ss = google_sheet_id, sheet = "us_timseries")
+
+data_dic_ts %>% 
+  sheet_write(ss = google_sheet_id, sheet = "data_dictionary_timseries")
+
+
 
 
 

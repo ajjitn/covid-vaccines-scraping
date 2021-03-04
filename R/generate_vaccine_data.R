@@ -80,6 +80,11 @@ us_df = d[64]  %>%
 df = df %>% 
   mutate(LongName = if_else(LongName == "New York State", "New York", LongName))
 
+
+
+
+
+
 ## --- Write out data -------
 
 # Write out current data
@@ -96,40 +101,24 @@ us_df %>%
 
 # Write out timeseries data
 if (!file.exists("data/timeseries/state_vaccinations.csv")){
-    
   dir.create("data/timeseries/", recursive = T, showWarnings = FALSE)
-  
-  df %>% 
-    write_csv("data/timeseries/state_vaccinations.csv")
-  
-  us_df %>% 
-    write_csv("data/timeseries/us_vaccinations.csv")
-  
-} else if(file.exists("data/timeseries/state_vaccinations.csv")){
-  
-  old_file_states = read_csv("data/timeseries/state_vaccinations.csv")
-  
-  new_file_states = old_file_states %>% 
-    bind_rows(df) %>% 
-    distinct(.keep_all = TRUE)
-  
-  new_file_states %>% 
-    write_csv("data/timeseries/state_vaccinations.csv")
-  
-  
-  
-  old_file_us = read_csv("data/timeseries/us_vaccinations.csv")
-  
-  new_file_us = old_file_us %>% 
-    bind_rows(us_df) %>% 
-    distinct(.keep_all = TRUE)
-  
-  new_file_us %>% 
-    write_csv("data/timeseries/us_vaccinations.csv")
-  
-  
 }
 
+owid = read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv") %>% 
+  select(date, location, daily_vaccinations_raw, daily_vaccinations, everything())
+
+us_ts = owid %>% 
+  filter(location == "United States")
+
+state_ts = owid %>% 
+  filter(location != "United States")
+
+
+us_ts %>% 
+  write_csv("data/timeseries/us_vaccinations.csv")
+
+us_ts %>% 
+  write_csv("data/timeseries/state_vaccinations.csv")
 
 
 

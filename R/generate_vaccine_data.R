@@ -117,7 +117,7 @@ state_ts = owid %>%
 us_ts %>% 
   write_csv("data/timeseries/us_vaccinations.csv")
 
-us_ts %>% 
+state_ts %>% 
   write_csv("data/timeseries/state_vaccinations.csv")
 
 

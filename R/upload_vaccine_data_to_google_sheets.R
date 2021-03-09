@@ -48,7 +48,7 @@ state_df = state_df %>%
          Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
          Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
          Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct, 
-         Census2019, Census2019_18PlusPop)
+         Census2019)
 
 
 
@@ -61,7 +61,7 @@ us_df = us_df %>%
          Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
          Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
          Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct,
-         Census2019, Census2019_18PlusPop)
+         Census2019)
 
 
 
@@ -87,8 +87,7 @@ data_dic = tribble(~column_name, ~cdc_description, ~in_cdc_dashboard,
                    "Administered_Dose2_Pop_Pct", "Percent of total population receiving 2 doses", 1,
                    "Administered_Dose2_Recip_18Plus", "People 18+ receiving 2 doses",  1,
                    "Administered_Dose2_Recip_18PlusPop_Pct", "Percent of 18+ population receiving 2 doses", 1,
-                   "Census2019", "Census 2019 population", 0,
-                   "Census2019_18PlusPop", "Census 2019 population above the age of 18",  0)
+                   "Census2019", "Census 2019 population", 0)
 
 data_dic_ts = tribble(~"See the section marked `US Vaccination Data` on this page:", "https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations")
 

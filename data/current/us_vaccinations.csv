@@ -1,2 +1,2 @@
 Date,Location,LongName,ShortName,Census2019,Doses_Distributed,Doses_Administered,Administered_Dose1_Pop_Pct,Administered_Dose2_Pop_Pct,date_type,Administered_Dose1_Recip,Administered_Dose2_Recip,Administered_Dose1_Recip_18Plus,Administered_Dose2_Recip_18Plus,Administered_Dose1_Recip_18PlusPop_Pct,Administered_Dose2_Recip_18PlusPop_Pct,Distributed_Per_100k_18Plus,Administered_18Plus,Admin_Per_100k_18Plus
-2021-03-09,WY,Wyoming,WYA,578759,246125,185813,19.9,11.7,Report,115046,67915,114975,67897,25.8,15.3,55306,185723,41733
+2021-03-10,WY,Wyoming,WYA,578759,259495,190180,20.2,12.2,Report,116799,70389,116725,70371,26.2,15.8,58310,190087,42714

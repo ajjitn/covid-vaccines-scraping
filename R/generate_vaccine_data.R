@@ -11,9 +11,18 @@ vaccination_data_url = "https://covid.cdc.gov/covid-data-tracker/COVIDData/getAj
 
 d = jsonlite::read_json(vaccination_data_url)['vaccination_data'][[1]]
 
+
+# 1 item in the returned JSON has a different structure from all the others, 
+# which corresponds to the data about vaccines given in Long Term Care
+# facilities. So we exclude this item from our JSON
+ltc_position = d %>%
+  map(~.x %>% pluck("ShortName") == "LTC") %>% unlist() %>% which()
+
+d = d[-ltc_position] 
+
 # item 64 = US national avg and item 65 = Long Term Care, which are formatted differently
 df = d %>% 
-  head(63) %>% 
+  # head(ltc_position - 1) %>% 
   map_df(~tibble(
     Date = .x %>% pluck("Date") %>% as.Date(),
     Location = .x %>% pluck("Location"),
@@ -39,35 +48,18 @@ df = d %>%
   ))
 
 
+us_df = df %>% 
+  filter(ShortName == "USA")
+
+state_df = df %>% 
+  filter(ShortName != "USA")
 
 
-us_df = d[64]  %>% 
-  map_df(~tibble(
-    Date = .x %>% pluck("Date") %>% as.Date(),
-    Location = .x %>% pluck("Location"),
-    LongName = .x %>% pluck("LongName"),
-    ShortName = .x %>% pluck("ShortName"),                            
-    Census2019 = .x %>% pluck("Census2019"),                            
-    Doses_Distributed = .x %>% pluck("Doses_Distributed"),                     
-    Doses_Administered = .x %>% pluck("Doses_Administered"),                    
-    Administered_Dose1_Pop_Pct = .x %>% pluck("Administered_Dose1_Pop_Pct"),            
-    Administered_Dose2_Pop_Pct = .x %>% pluck("Administered_Dose2_Pop_Pct"),            
-    date_type = .x %>% pluck("date_type"),                             
-    Administered_Dose1_Recip = .x %>% pluck("Administered_Dose1_Recip"),              
-    Administered_Dose2_Recip = .x %>% pluck("Administered_Dose2_Recip"),              
-    Administered_Dose1_Recip_18Plus = .x %>% pluck("Administered_Dose1_Recip_18Plus"),       
-    Administered_Dose2_Recip_18Plus = .x %>% pluck("Administered_Dose2_Recip_18Plus"),       
-    Administered_Dose1_Recip_18PlusPop_Pct = .x %>% pluck("Administered_Dose1_Recip_18PlusPop_Pct"),
-    Administered_Dose2_Recip_18PlusPop_Pct = .x %>% pluck("Administered_Dose2_Recip_18PlusPop_Pct"),
-    Distributed_Per_100k_18Plus = .x %>% pluck("Distributed_Per_100k_18Plus"),           
-    Administered_18Plus = .x %>% pluck("Administered_18Plus"),                   
-    Admin_Per_100k_18Plus = .x %>% pluck("Admin_Per_100k_18Plus"), 
-  ))
 
 
 
 # CDC for some reason reports New York as New York State. Based on Lindsays' request, we update this
-df = df %>% 
+state_df = state_df %>% 
   mutate(LongName = if_else(LongName == "New York State", "New York", LongName))
 
 
@@ -80,7 +72,7 @@ df = df %>%
 # Write out current data
 dir.create("data/current/", recursive = T, showWarnings = FALSE)
 
-df %>% 
+state_df %>% 
   write_csv("data/current/state_vaccinations.csv")
 
 us_df %>% 

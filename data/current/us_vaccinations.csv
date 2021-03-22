@@ -1,2 +1,2 @@
 Date,Location,LongName,ShortName,Census2019,Doses_Distributed,Doses_Administered,Dist_Per_100K,Admin_Per_100K,Administered_Dose1_Pop_Pct,Administered_Dose2_Pop_Pct,date_type,Administered_Dose1_Recip,Administered_Dose2_Recip,Administered_Dose1_Recip_18Plus,Administered_Dose2_Recip_18Plus,Administered_Dose1_Recip_18PlusPop_Pct,Administered_Dose2_Recip_18PlusPop_Pct,Distributed_Per_100k_18Plus,Administered_18Plus,Admin_Per_100k_18Plus
-2021-03-21,US,United States,USA,331996199,156734555,124481412,47210,37495,24.5,12.6,Report,81415769,41858674,81210318,41801284,31.5,16.2,60719,124217070,48122
+2021-03-22,US,United States,USA,331996199,156734555,126509736,47210,38106,24.9,12.8,Report,82772416,42521057,82556600,42461306,32,16.4,60719,126232653,48903

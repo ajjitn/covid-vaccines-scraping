@@ -10,7 +10,7 @@ library(tidyverse)
 ## --- Get secrets from .env -------
 
 # When using GH actions, env vars won't be in .env file 
-# and will instead be laoded in as a repository secret.
+# and will instead be loaded in as a repository secret.
 # So we safely use load_dot_env for local development
 load_dot_env_safely = purrr::possibly(load_dot_env, 
                                       otherwise = ".env file was not found and therefore not loaded")
@@ -48,7 +48,7 @@ state_df = state_df %>%
          Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
          Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
          Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct, 
-         Census2019)
+         Census2019, everything())
 
 
 
@@ -61,7 +61,7 @@ us_df = us_df %>%
          Administered_Dose1_Recip_18Plus, Administered_Dose1_Recip_18PlusPop_Pct,
          Administered_Dose2_Recip, Administered_Dose2_Pop_Pct,
          Administered_Dose2_Recip_18Plus, Administered_Dose2_Recip_18PlusPop_Pct,
-         Census2019)
+         Census2019, everything())
 
 
 

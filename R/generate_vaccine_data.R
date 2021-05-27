@@ -102,7 +102,6 @@ state_df <- state_df %>%
 
 
 
-
 ## --- Write out data -------
 
 # Write out current data

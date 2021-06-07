@@ -55,7 +55,7 @@ d <- d[-ltc_position]
 
 # Convert all fields in JSON into dataframe
 df_all <- d %>%
-  map_df(as.tibble)
+  map_df(as_tibble)
 
 # current_day <- format(Sys.time(), "%Y_%m_%d-%X")
 colnames_df <- tibble(colnames = df_all %>%

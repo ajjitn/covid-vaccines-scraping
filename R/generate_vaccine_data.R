@@ -63,16 +63,20 @@ colnames_df <- tibble(colnames = df_all %>%
   sort())
 
 # If the field types aren't the same as those in the cache, then stop the GH Action
-if (!dplyr::all_equal(colnames_df, read_csv("data/cdc_schema_db/fields.csv"))) {
+if (!isTRUE(dplyr::all_equal(colnames_df, read_csv("data/cdc_schema_db/fields.csv")))) {
   # If all of the fields in the Google Sheets are in the data, then write out
-  # schema and stop with a waarning. The next GH action trigger will update
+  # schema and stop with a warning. The next GH action trigger will update
   # succesfully
   if (all(fields_to_include %in% (colnames_df$colnames))) {
     colnames_df %>%
       write_csv("data/cdc_schema_db/fields.csv")
-
+    
+    # Read in list of old columns
+    old_columns = read_csv("data/cdc_schema_db/fields.csv") %>% 
+      pull(colnames)
+    
     # get list of new columns in data
-    new_cols <- colnames_df$colnames[!colnames_df$colnames %in% fields_to_include] %>%
+    new_cols <- colnames_df$colnames[!colnames_df$colnames %in% old_columns] %>%
       paste0(collapse = ", ")
     stop(str_glue("New fields were added to the CDC API schema: {new_cols}. All old fields are stil in API output, so next GH action trigger wil update the data succesfully."))
 
